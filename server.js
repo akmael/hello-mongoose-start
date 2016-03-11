@@ -20,7 +20,7 @@ var todoSchema = new Schema({
 
 var Todo = mongoose.model('Todo', todoSchema);
 
-<<<<<<< HEAD
+
 //todo model
 var todoSchema = new Schema({
   desc: {
@@ -39,7 +39,7 @@ var Todo = mongoose.model('Todo', todoSchema);
 //create a connection to our db
 mongoose.connect('mongodb://localhost/todoApp');
 
-=======
+
 
 //create a connection to our db
 mongoose.connect('mongodb://localhost/todoApp');
@@ -47,12 +47,8 @@ var port = process.env.PORT || 9000;
 
 server.use(express.static(path.join(__dirname,'public')));
 server.use(logger);
-<<<<<<< HEAD
-server.use( bodyParser.json());
-server.use(bodyParser.urlencoded({extended: true}));
 
-=======
-server.use(bodyParser.json());
+server.use( bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 
 
@@ -131,8 +127,6 @@ server.post('/api/todos', function(req, res){
 
 
 server.delete('/api/todos/:id', function(req, res){
-
-
     Todo.findOneAndRemove({_id: req.params.id}, function(err, todo){
        if(err) throw err;
        res.json(todo);

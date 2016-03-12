@@ -10,6 +10,7 @@ TodoController.$inject = ['$scope', '$http'];
 
 function TodoController($scope, $http){
    $scope.todos = [];
+   $scope.isEditing = false;
    initTodos();
 
    //create a new todo
@@ -23,6 +24,38 @@ function TodoController($scope, $http){
             console.err(err);
           });
    }
+
+   $scope.deleteTodo = function(todo){
+
+     var id = todo._id;
+     $http.delete('/api/todos/'+id)
+          .then(function(response){
+             initTodos();
+          })
+          .catch(function(err){
+            console.err(err);
+          })
+   }
+
+
+     $scope.updateTodo = function(todo){
+     $scope.isEditing = !$scope.isEditing;
+
+     $scope.editingTodo = todo;
+
+   }
+
+  $scope.updateTodo= function(todo){
+    $http.put('/api/todos/'+todo._id, todo)
+              .then(function(response){
+                initTodos();
+                $scope.editingTodo = false;
+
+              })
+              .catch(function(err){
+                console.err(err);
+              })
+  }
 
    function initTodos(){
      $http.get('/api/todos')
